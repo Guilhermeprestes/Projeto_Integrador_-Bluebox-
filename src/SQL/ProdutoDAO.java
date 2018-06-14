@@ -7,6 +7,7 @@ package SQL;
 
 import GUI.Login;
 import GUI.homeAdm;
+import GUI.homeGerente;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -46,6 +47,18 @@ public class ProdutoDAO {
       };
         
       Login.TabelaBuscaProdutos.setModel(modelo);
+      executarConsultaTabelaToda();
+        
+    }
+    
+    public void carregarProdutosGer(){
+      modelo = new DefaultTableModel(info,tColunas){
+          public boolean is (int row, int coluna){
+              return false;
+          }
+      };
+        
+      homeGerente.TabelaBuscaProdutos.setModel(modelo);
       executarConsultaTabelaToda();
         
     }

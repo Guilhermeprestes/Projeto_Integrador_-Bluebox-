@@ -6,9 +6,6 @@
 package bluebox;
 
 import GUI.Login;
-import GUI.homeAdm;
-import GUI.homeGerente;
-import SQL.conexao;
 
 
 

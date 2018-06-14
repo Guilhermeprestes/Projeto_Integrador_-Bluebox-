@@ -10,6 +10,8 @@ import SQL.conexao;
 import java.awt.Dimension;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -26,7 +28,7 @@ public class homeGerente extends javax.swing.JFrame {
     }
     private void chamarProdutos(){
         ProdutoDAO load = new ProdutoDAO();
-        load.carregarProdutos();
+        load.carregarProdutosGer();
         jd_BuscarProdutos.setLocation(200, 100);
         jd_BuscarProdutos.setMinimumSize(new Dimension(800, 400));
         jd_BuscarProdutos.setModal(true);
@@ -129,6 +131,7 @@ public class homeGerente extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         btnProduto = new javax.swing.JButton();
         btnData = new javax.swing.JButton();
+        btnSair = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -841,6 +844,13 @@ public class homeGerente extends javax.swing.JFrame {
             }
         });
 
+        btnSair.setText("Sair");
+        btnSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSairActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -856,6 +866,10 @@ public class homeGerente extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(btnData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(64, 64, 64)
+                .addComponent(btnSair)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -870,7 +884,9 @@ public class homeGerente extends javax.swing.JFrame {
                 .addComponent(btnClient)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnData)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnSair)
+                .addContainerGap())
         );
 
         jPanel3.setBackground(new java.awt.Color(0, 191, 255));
@@ -899,6 +915,11 @@ public class homeGerente extends javax.swing.JFrame {
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/logo bluebox color.png"))); // NOI18N
 
         btnSortear.setText("sortear");
+        btnSortear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSortearActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -981,7 +1002,7 @@ public class homeGerente extends javax.swing.JFrame {
             pstm.setString(6, Tipe);
            
             pstm.execute();
-             JOptionPane.showMessageDialog(null, "Produto inserido com sucesso!");
+             JOptionPane.showMessageDialog(null, "GERENTE CADASTRADO COM SUCESSO!");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "ERRO SQL:\n" + e);
         }
@@ -1015,7 +1036,7 @@ public class homeGerente extends javax.swing.JFrame {
            
            
             pstm.execute();
-             JOptionPane.showMessageDialog(null, "PRODUTO INSERIDO COM SUCESSO!");
+             JOptionPane.showMessageDialog(null, "PRODUTO CADASTRADO COM SUCESSO!");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "ERRO SQL:\n" + e);
         }
@@ -1057,7 +1078,7 @@ public class homeGerente extends javax.swing.JFrame {
            
            
             pstm.execute();
-             JOptionPane.showMessageDialog(null, "CLIENTE SALVO COM SUCESSO!");
+             JOptionPane.showMessageDialog(null, "CLIENTE CADASTRADO COM SUCESSO!");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "ERRO SQL:\n" + e);
         }
@@ -1112,8 +1133,10 @@ public class homeGerente extends javax.swing.JFrame {
 
     private void btnSalvarDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarDataActionPerformed
   
-        String InsertSql = "INSERT INTO data_tb (data)"
-           + " VALUES(?)";
+        int iddata = 1;
+        
+        String InsertSql = "UPDATE data_tb SET data = ? WHERE id_data = ?";
+           
         
     Connection conn = null;
     PreparedStatement pstm = null ;
@@ -1124,16 +1147,17 @@ public class homeGerente extends javax.swing.JFrame {
             pstm = conn.prepareStatement(InsertSql);
             
             pstm.setString(1, txtData.getText());
-            
+            pstm.setInt(2,iddata);
            
             
            
             pstm.execute();
-             JOptionPane.showMessageDialog(null, "DATA CADASTRADA");
+             JOptionPane.showMessageDialog(null, "NOVA DATA CADASTRADA");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "ERRO SQL:\n" + e);
         }
-        CadGerente.dispose();
+        
+        cadData.dispose();
         
         
     }//GEN-LAST:event_btnSalvarDataActionPerformed
@@ -1143,6 +1167,73 @@ public class homeGerente extends javax.swing.JFrame {
     cadData.setMinimumSize(new Dimension(400, 160));
     cadData.setVisible(true);
     }//GEN-LAST:event_btnDataActionPerformed
+
+    private void btnSortearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSortearActionPerformed
+        //sorteio
+        
+        int idSorteio = 0;
+        int idcliente = 0;
+        String nomeCliente = null;
+        int cpfCliente = 0;
+        int idproduto = 0;
+       
+    Connection conn = null;
+    PreparedStatement pst = null;
+    ResultSet rs = null;
+                //SELECT * FROM USUARIO ORDER BY RAND() LIMIT 2
+         String sql = "SELECT * FROM sorteio_tb ORDER BY RAND() LIMIT 1 ";
+            try {
+                conn = conexao.getConexion();
+                pst = conn.prepareStatement(sql);
+                              
+                rs = pst.executeQuery();
+                
+               while (rs.next()){
+                 idSorteio = rs.getInt("id_sorteio");
+                 idSorteio = rs.getInt("idCliente");
+                 nomeCliente= rs.getString("nomeCliente");
+                 cpfCliente = rs.getInt("cpfCliente");
+                 idproduto = rs.getInt("idProduto");
+                
+                
+                 JOptionPane.showMessageDialog(null, nomeCliente);
+                
+            }
+               
+               
+                
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
+            }//fim do try
+            
+            
+           int idpremiado = 1;
+        
+         String InsertSql = "UPDATE premiado_tb SET premiado = ? , idcliente=? WHERE idpremiado = ?";
+         
+        try {
+            conn = conexao.getConexion();
+            pst = conn.prepareStatement(InsertSql);
+            
+            pst.setString(1,nomeCliente);
+            pst.setInt(2,idcliente);
+            pst.setInt(3,idpremiado);
+           
+            
+           
+            pst.execute();
+             JOptionPane.showMessageDialog(null, "SORTEADO SALVO COM SUCESSO");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "ERRO SQL:\n" + e);
+        }
+        
+    }//GEN-LAST:event_btnSortearActionPerformed
+
+    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
+        setVisible(false);
+        Login log = new Login();
+        log.setVisible(true);
+    }//GEN-LAST:event_btnSairActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1193,6 +1284,7 @@ public class homeGerente extends javax.swing.JFrame {
     private javax.swing.JButton btnData;
     private javax.swing.JButton btnGerente;
     private javax.swing.JButton btnProduto;
+    private javax.swing.JButton btnSair;
     private javax.swing.JButton btnSalvarData;
     private javax.swing.JButton btnSalvar_Produto;
     private javax.swing.JButton btnSalvar_cliente;

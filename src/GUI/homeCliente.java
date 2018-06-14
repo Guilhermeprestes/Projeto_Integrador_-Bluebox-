@@ -6,6 +6,7 @@
 package GUI;
 
 import SQL.conexao;
+import java.awt.Dimension;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,6 +19,13 @@ public class homeCliente extends javax.swing.JFrame {
     Connection conn = null;
     PreparedStatement pst = null;
     ResultSet rs = null;
+    
+    
+    String NomeCliente = null;
+    int CpfCliente = 0;
+    int IdCliente = 0;
+    int IdProduto = 0;
+    
 
     public homeCliente(String idUsuario) {
         this.idUsuario = idUsuario;
@@ -33,24 +41,57 @@ public class homeCliente extends javax.swing.JFrame {
                 rs = pst.executeQuery();
                 
                while (rs.next()){
-                String Nome = rs.getString("nome_cliente");
-                 txtNomeCliente.setText(Nome);                           
-                
+                this.NomeCliente  = rs.getString("nome_cliente");
+                this.CpfCliente = rs.getInt("cpf_cliente");
+                this.IdProduto = rs.getInt("idproduto_cliente");
+               
             }
-               
-               
-                
+             
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e);
             }//fim do try
         
+         txtNomeCliente.setText(NomeCliente);
         
-        
-        
-        
+         String sqli = "Select * from data_tb";
+            try {
+                conn = conexao.getConexion();
+                pst = conn.prepareStatement(sqli);
+                              
+                rs = pst.executeQuery();
+                
+               while (rs.next()){
+                   
+                String Dta = rs.getString("data");
+                txtSorteio.setText(Dta);
+               
+            }
+             
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
+            }//fim do try
+            String sqlii = "Select * from premiado_tb";
+            try {
+                conn = conexao.getConexion();
+                pst = conn.prepareStatement(sqlii);
+                              
+                rs = pst.executeQuery();
+                
+               while (rs.next()){
+                   
+                String Dta = rs.getString("premiado");
+                txtNomeSorteado.setText(Dta);
+               
+            }
+             
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
+            }//fim do try
+         
+         
     }
 
-    
+   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -61,14 +102,78 @@ public class homeCliente extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jdDarLance = new javax.swing.JDialog();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        txtDarLance = new javax.swing.JTextField();
+        btnLancar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        btnDarLance = new javax.swing.JButton();
+        txtSorteio = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        txtNomeSorteado = new javax.swing.JLabel();
+        btnsair = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         txtNomeCliente = new javax.swing.JLabel();
+        btnDarLance = new javax.swing.JButton();
+
+        jPanel4.setBackground(new java.awt.Color(0, 0, 168));
+
+        jLabel2.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Qual o valor desejado ?");
+
+        btnLancar.setText("OK");
+        btnLancar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLancarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel2))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(46, 46, 46)
+                        .addComponent(txtDarLance, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnLancar)))
+                .addContainerGap(46, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnLancar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtDarLance, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(42, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jdDarLanceLayout = new javax.swing.GroupLayout(jdDarLance.getContentPane());
+        jdDarLance.getContentPane().setLayout(jdDarLanceLayout);
+        jdDarLanceLayout.setHorizontalGroup(
+            jdDarLanceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jdDarLanceLayout.setVerticalGroup(
+            jdDarLanceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        jLabel1.setText("jLabel1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -76,14 +181,26 @@ public class homeCliente extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 128));
 
-        jLabel5.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Menu");
+        txtSorteio.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        txtSorteio.setForeground(new java.awt.Color(255, 255, 51));
+        txtSorteio.setText("00/00/0000");
 
-        btnDarLance.setText("Dar Lance");
-        btnDarLance.addActionListener(new java.awt.event.ActionListener() {
+        jLabel6.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Proximo Sorteio");
+
+        jLabel9.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("Ultimo Sorteado");
+
+        txtNomeSorteado.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        txtNomeSorteado.setForeground(new java.awt.Color(255, 255, 51));
+        txtNomeSorteado.setText("Nome sorteado");
+
+        btnsair.setText("Sair");
+        btnsair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDarLanceActionPerformed(evt);
+                btnsairActionPerformed(evt);
             }
         });
 
@@ -94,21 +211,39 @@ public class homeCliente extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel5))
+                        .addGap(33, 33, 33)
+                        .addComponent(txtSorteio))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(btnDarLance, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(25, Short.MAX_VALUE))
+                        .addGap(24, 24, 24)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel9)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(btnsair)
+                                .addComponent(txtNomeSorteado)))))
+                .addContainerGap(58, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGap(20, 20, 20)
+                    .addComponent(jLabel6)
+                    .addContainerGap(65, Short.MAX_VALUE)))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel5)
+                .addGap(47, 47, 47)
+                .addComponent(txtSorteio)
                 .addGap(18, 18, 18)
-                .addComponent(btnDarLance, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jLabel9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtNomeSorteado)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnsair)
+                .addContainerGap())
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGap(21, 21, 21)
+                    .addComponent(jLabel6)
+                    .addContainerGap(322, Short.MAX_VALUE)))
         );
 
         jPanel3.setBackground(new java.awt.Color(0, 191, 255));
@@ -122,7 +257,7 @@ public class homeCliente extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(261, Short.MAX_VALUE)
                 .addComponent(jLabel8)
                 .addGap(23, 23, 23))
         );
@@ -140,24 +275,27 @@ public class homeCliente extends javax.swing.JFrame {
         txtNomeCliente.setForeground(new java.awt.Color(0, 0, 168));
         txtNomeCliente.setText("Nome Cliente");
 
+        btnDarLance.setText("Dar Lance");
+        btnDarLance.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDarLanceActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(45, 277, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(txtNomeCliente)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNomeCliente)
+                    .addComponent(btnDarLance, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -166,7 +304,9 @@ public class homeCliente extends javax.swing.JFrame {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtNomeCliente)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 159, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(btnDarLance, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
                 .addComponent(jLabel7)
                 .addGap(23, 23, 23))
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -187,8 +327,45 @@ public class homeCliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDarLanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDarLanceActionPerformed
-        // TODO add your handling code here:
+    
+    jdDarLance.setLocation(200, 100);
+    jdDarLance.setMinimumSize(new Dimension(400, 200));
+    jdDarLance.setVisible(true);
+        
+        
+        
     }//GEN-LAST:event_btnDarLanceActionPerformed
+
+    private void btnLancarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLancarActionPerformed
+       
+        IdCliente = Integer.parseInt(idUsuario);
+        
+        String InsertSql = "INSERT INTO sorteio_tb (nomeCliente,cpfCliente,idCliente,idProduto)"
+           + " VALUES(?,?,?,?)";
+          
+        try {
+           conn = conexao.getConexion();
+           pst = conn.prepareStatement(InsertSql);
+         
+             pst.setString(1,NomeCliente);
+             pst.setInt(2, CpfCliente);
+             pst.setInt(3, IdCliente);
+             pst.setInt(4, IdProduto);
+           
+            pst.execute();
+             JOptionPane.showMessageDialog(null, "LANCE DADO COM SUCESSO!");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "ERRO SQL:\n" + e);
+        }
+        
+        jdDarLance.setVisible(false);
+    }//GEN-LAST:event_btnLancarActionPerformed
+
+    private void btnsairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsairActionPerformed
+        setVisible(false);
+        Login log = new Login();
+        log.setVisible(true);
+    }//GEN-LAST:event_btnsairActionPerformed
 
     /**
      * @param args the command line arguments
@@ -227,12 +404,22 @@ public class homeCliente extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDarLance;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JButton btnLancar;
+    private javax.swing.JButton btnsair;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JDialog jdDarLance;
+    private javax.swing.JTextField txtDarLance;
     private javax.swing.JLabel txtNomeCliente;
+    private javax.swing.JLabel txtNomeSorteado;
+    private javax.swing.JLabel txtSorteio;
     // End of variables declaration//GEN-END:variables
 }

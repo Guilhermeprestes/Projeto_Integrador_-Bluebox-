@@ -122,6 +122,7 @@ public class homeAdm extends javax.swing.JFrame {
         btnClient = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         btnProduto = new javax.swing.JButton();
+        btnsair = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -759,6 +760,13 @@ public class homeAdm extends javax.swing.JFrame {
             }
         });
 
+        btnsair.setText("Sair");
+        btnsair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnsairActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -773,6 +781,10 @@ public class homeAdm extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(btnClient, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(53, 53, 53)
+                .addComponent(btnsair, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -785,7 +797,9 @@ public class homeAdm extends javax.swing.JFrame {
                 .addComponent(btnGerente)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnClient)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnsair)
+                .addContainerGap())
         );
 
         jPanel3.setBackground(new java.awt.Color(0, 191, 255));
@@ -888,7 +902,7 @@ public class homeAdm extends javax.swing.JFrame {
             pstm.setString(6, Tipe);
            
             pstm.execute();
-             JOptionPane.showMessageDialog(null, "Produto inserido com sucesso!");
+             JOptionPane.showMessageDialog(null, "GERENTE CADASTRADO COM SUCESSO!");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "ERRO SQL:\n" + e);
         }
@@ -922,7 +936,7 @@ public class homeAdm extends javax.swing.JFrame {
            
            
             pstm.execute();
-             JOptionPane.showMessageDialog(null, "PRODUTO INSERIDO COM SUCESSO!");
+             JOptionPane.showMessageDialog(null, "PRODUTO CADASTRADO COM SUCESSO!");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "ERRO SQL:\n" + e);
         }
@@ -964,7 +978,7 @@ public class homeAdm extends javax.swing.JFrame {
            
            
             pstm.execute();
-             JOptionPane.showMessageDialog(null, "CLIENTE SALVO COM SUCESSO!");
+             JOptionPane.showMessageDialog(null, "CLIENTE CADASTRADO COM SUCESSO!");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "ERRO SQL:\n" + e);
         }
@@ -1017,6 +1031,12 @@ public class homeAdm extends javax.swing.JFrame {
        CadCliente.dispose(); // TODO add your handling code here:
     }//GEN-LAST:event_btnCancelarclienteActionPerformed
 
+    private void btnsairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsairActionPerformed
+       setVisible(false);
+        Login log = new Login();
+        log.setVisible(true);
+    }//GEN-LAST:event_btnsairActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1068,6 +1088,7 @@ public class homeAdm extends javax.swing.JFrame {
     private javax.swing.JButton btnSalvar_cliente;
     private javax.swing.JButton btnSalvar_gerente;
     private javax.swing.JButton btn_selecionarProdutos;
+    private javax.swing.JButton btnsair;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

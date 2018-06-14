@@ -55,6 +55,8 @@ public class Login extends javax.swing.JFrame {
                 if(rs.next()){
                     homeAdm adm = new homeAdm();
                     adm.setVisible(true);
+                    adm.setLocation(300, 200);
+                    setVisible(false);
                     
                     
                 }else{
@@ -79,6 +81,8 @@ public class Login extends javax.swing.JFrame {
                 if(rs.next()){
                     homeGerente ger = new homeGerente();
                     ger.setVisible(true);
+                    ger.setLocation(300, 200);
+                    setVisible(false);
                 }else{
                     JOptionPane.showMessageDialog(null, "USUÁRIO OU SENHA INVÁLIDOS(S)!");
                 }
@@ -103,6 +107,7 @@ public class Login extends javax.swing.JFrame {
                     homeCliente client = new homeCliente(idUsuario);
                     client.setVisible(true);
                     client.setLocation(300, 200);
+                    setVisible(false);
                     
                     /*****************************************/
                 }else{
@@ -652,7 +657,7 @@ public class Login extends javax.swing.JFrame {
             pstm.setString(11,tipe);
 
             pstm.execute();
-            JOptionPane.showMessageDialog(null, "CLIENTE SALVO COM SUCESSO!");
+            JOptionPane.showMessageDialog(null, "SEJA BEM VINDO - VOCÊ FOI CADASTRADO COM SUCESSO!");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "ERRO SQL:\n" + e);
         }
