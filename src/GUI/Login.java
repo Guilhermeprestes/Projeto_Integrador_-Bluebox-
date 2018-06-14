@@ -77,8 +77,8 @@ public class Login extends javax.swing.JFrame {
                 rs = pst.executeQuery();
                 
                 if(rs.next()){
-                    homeAdm adm = new homeAdm();
-                    adm.setVisible(true);
+                    homeGerente ger = new homeGerente();
+                    ger.setVisible(true);
                 }else{
                     JOptionPane.showMessageDialog(null, "USUÁRIO OU SENHA INVÁLIDOS(S)!");
                 }
@@ -98,10 +98,13 @@ public class Login extends javax.swing.JFrame {
                 rs = pst.executeQuery();
                 
                 if(rs.next()){
-                    homeCliente cli = new homeCliente();
-                    cli.setVisible(true);
+                    /***********************************/
                     Login.idUsuario = rs.getString("id_cliente");
-                    homeCliente test = new homeCliente(idUsuario);
+                    homeCliente client = new homeCliente(idUsuario);
+                    client.setVisible(true);
+                    client.setLocation(300, 200);
+                    
+                    /*****************************************/
                 }else{
                     JOptionPane.showMessageDialog(null, "USUÁRIO OU SENHA INVÁLIDOS(S)!");
                 }

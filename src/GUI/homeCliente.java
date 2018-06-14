@@ -10,64 +10,46 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
+
 public class homeCliente extends javax.swing.JFrame {
-    
+
+    private String idUsuario = null;
     
     Connection conn = null;
     PreparedStatement pst = null;
     ResultSet rs = null;
-  
 
-    homeCliente(String idUsuario) {
+    public homeCliente(String idUsuario) {
+        this.idUsuario = idUsuario;
+        initComponents();
+        //txtNomeCliente.setText(idUsuario);
+        //JOptionPane.showMessageDialog(null, "teste " + idUsuario);
         
-        JOptionPane.showMessageDialog(null,"aqui "+ idUsuario);
-       
-         
+           String sql = "Select * from cliente_tb where id_cliente="+idUsuario;
             try {
-                String sql = "Select * from cliente_tb where id_cliente=?";
                 conn = conexao.getConexion();
                 pst = conn.prepareStatement(sql);
-                
-                int top = Integer.parseInt(idUsuario);
-                pst.setInt(1, top);
+                              
                 rs = pst.executeQuery();
                 
-                if(rs.next()){
-                    
-                    String nameUser = rs.getString("nome_cliente");
-                    txtNomeCliente.setText(nameUser);
-                }else{
-                    JOptionPane.showMessageDialog(null, "ESSA BOSTA DA TRABALHO");
-                }
+               while (rs.next()){
+                String Nome = rs.getString("nome_cliente");
+                 txtNomeCliente.setText(Nome);                           
+                
+            }
+               
+               
                 
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e);
-            }//fim do try  
-            
-            
-      
+            }//fim do try
+        
+        
+        
+        
         
     }
-    
-   
-    
-   
-    
-    public homeCliente() {
-        
-        
-       
-        initComponents();
-        
-        
-        
-        
-        
-     
-    }
-    
-    
-    
+
     
 
     /**
@@ -82,11 +64,11 @@ public class homeCliente extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        txtNomeCliente = new javax.swing.JLabel();
+        btnDarLance = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        btnDarLance = new javax.swing.JButton();
+        txtNomeCliente = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -98,9 +80,12 @@ public class homeCliente extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Menu");
 
-        txtNomeCliente.setFont(new java.awt.Font("Calibri", 1, 36)); // NOI18N
-        txtNomeCliente.setForeground(new java.awt.Color(255, 255, 255));
-        txtNomeCliente.setText("Cliente");
+        btnDarLance.setText("Dar Lance");
+        btnDarLance.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDarLanceActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -112,9 +97,9 @@ public class homeCliente extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jLabel5))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(txtNomeCliente)))
-                .addContainerGap(55, Short.MAX_VALUE))
+                        .addGap(20, 20, 20)
+                        .addComponent(btnDarLance, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -122,7 +107,7 @@ public class homeCliente extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel5)
                 .addGap(18, 18, 18)
-                .addComponent(txtNomeCliente)
+                .addComponent(btnDarLance, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -151,12 +136,9 @@ public class homeCliente extends javax.swing.JFrame {
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/logo bluebox color.png"))); // NOI18N
 
-        btnDarLance.setText("Dar Lance");
-        btnDarLance.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDarLanceActionPerformed(evt);
-            }
-        });
+        txtNomeCliente.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        txtNomeCliente.setForeground(new java.awt.Color(0, 0, 168));
+        txtNomeCliente.setText("Nome Cliente");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -165,25 +147,27 @@ public class homeCliente extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(45, 277, Short.MAX_VALUE)
+                        .addComponent(jLabel7)
+                        .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGap(35, 35, 35)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addComponent(btnDarLance, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 127, Short.MAX_VALUE)
-                        .addComponent(jLabel7)
-                        .addContainerGap())))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(txtNomeCliente)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 193, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel7)
-                    .addComponent(btnDarLance, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtNomeCliente)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 159, Short.MAX_VALUE)
+                .addComponent(jLabel7)
                 .addGap(23, 23, 23))
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -236,7 +220,7 @@ public class homeCliente extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new homeCliente().setVisible(true);
+                new homeCliente("4").setVisible(true);
             }
         });
     }
